@@ -62,6 +62,13 @@ https://stackoverflow.com/questions/47709208/how-to-find-docker-host-uri-to-be-u
 docker run -d --name jenkins-traffic-forwarder --restart=always -p 127.0.0.1:2376:2375 --network jenkins -v /var/run/docker.sock:/var/run/docker.sock alpine/socat tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
 docker inspect <container_id> | grep IPAddress
 ```
+When the first command is executed, it runs the image and we need to configure the cloud agent in Jenkins Controller to check if the current container has the same IP address as the one we have configured in the cloud agent. If there is new IP address configured in the container, we need to:
+  1. Navigate to Jenkins Dashboard
+  2. Go to Manage Jenkins
+  3. Go to Clouds
+  4. Navigate to the cloud that has the container as the forwarder
+  5. Go to the cloud details
+  6. Provide the new IP address and test the new connection
 
 ## Using my Jenkins Python Agent
 ```
